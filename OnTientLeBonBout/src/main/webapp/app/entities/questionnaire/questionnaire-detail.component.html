@@ -13,7 +13,8 @@
                         <img src={{item.media?.adresse}}>
                         </div>
                         	<div *ngFor="let i of item.reponses">
-                        		<input type="checkbox" id="reponse" name="reponses" [routerLink]="['/reponse', i?.intitule, 'view']">{{i?.intitule}}
+                        		<input type="checkbox" id="reponse" name="reponses">{{i?.intitule}}
+                        		<input type="hidden" type="checkbox" id="reponse" name="reponses">{{i?.valide}}
                         	</div>
                     </div>
                 </dd>
@@ -29,6 +30,11 @@
                     [routerLink]="['/questionnaire', questionnaire.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+            <button type="button"
+                    [routerLink]="['/questionnaire', questionnaire.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Submit</span>
             </button>
         </div>
     </div>
