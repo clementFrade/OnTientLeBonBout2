@@ -27,11 +27,11 @@ public class Question implements Serializable {
     @Column(name = "intitule")
     private String intitule;
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(unique = true)
     private Media media;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question",fetch=FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Reponse> reponses = new HashSet<>();
 

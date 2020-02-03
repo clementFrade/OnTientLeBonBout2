@@ -23,7 +23,7 @@ public class Questionnaire implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @OneToMany(mappedBy = "questionnaire")
+    @OneToMany(mappedBy = "questionnaire",fetch=FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Question> questions = new HashSet<>();
 
