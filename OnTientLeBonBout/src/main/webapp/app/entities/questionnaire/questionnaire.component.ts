@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IQuestionnaire } from 'app/shared/model/questionnaire.model';
-import { AccountService } from 'app/core';
+import { AccountService, Account } from 'app/core';
 import { QuestionnaireService } from './questionnaire.service';
 
 @Component({
@@ -15,7 +15,9 @@ import { QuestionnaireService } from './questionnaire.service';
 export class QuestionnaireComponent implements OnInit, OnDestroy {
   questionnaires: IQuestionnaire[];
   currentAccount: any;
+  account: Account;
   eventSubscriber: Subscription;
+  isClient: Boolean = false;
 
   constructor(
     protected questionnaireService: QuestionnaireService,
@@ -43,8 +45,16 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;
+      this.account = account;
+      for (let element of account.authorities) {
+        if (element === 'ROLE_ADMIN') {
+          this.isClient = true;
+        }
+      }
     });
     this.registerChangeInQuestionnaires();
+
+    console.log('HEY' + this.isClient);
   }
 
   ngOnDestroy() {
@@ -57,6 +67,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
 
   registerChangeInQuestionnaires() {
     this.eventSubscriber = this.eventManager.subscribe('questionnaireListModification', response => this.loadAll());
+    this.accountService.identity().then(account => {
+      this.account = account;
+    });
   }
 
   protected onError(errorMessage: string) {
