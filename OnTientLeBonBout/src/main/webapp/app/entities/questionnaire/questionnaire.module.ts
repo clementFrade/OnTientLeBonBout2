@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OnTientLeBonBoutSharedModule } from 'app/shared';
 import {
@@ -11,13 +12,13 @@ import {
   QuestionnaireDeletePopupComponent,
   QuestionnaireDeleteDialogComponent,
   questionnaireRoute,
-  questionnairePopupRoute
+  questionnairePopupRoute,
 } from './';
 
 const ENTITY_STATES = [...questionnaireRoute, ...questionnairePopupRoute];
 
 @NgModule({
-  imports: [OnTientLeBonBoutSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [OnTientLeBonBoutSharedModule, RouterModule.forChild(ENTITY_STATES), FormsModule, ReactiveFormsModule],
   declarations: [
     QuestionnaireComponent,
     QuestionnaireDetailComponent,

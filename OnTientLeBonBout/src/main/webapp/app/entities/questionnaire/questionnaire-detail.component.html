@@ -5,6 +5,7 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                 <dt><span jhiTranslate="onTientLeBonBoutApp.questionnaire.questions">Questions</span></dt>
                 <dd>
                      <div *ngFor="let item of questionnaire.questions">
@@ -13,13 +14,18 @@
                         <img src={{item.media?.adresse}}>
                         </div>
                         	<div *ngFor="let i of item.reponses">
-                        		<input type="checkbox" id="reponse" name="reponses">{{i?.intitule}}
-                        		<input type="hidden" type="checkbox" id="reponse" name="reponses">{{i?.valide}}
+                        		<input type="checkbox" id={{i.id}} name={{i.id}} value={{i?.valide}}
+									ngModel>
+									<label for="reponse $i">{{i?.intitule}}</label> 
                         	</div>
                     </div>
                 </dd>
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+                </form>
+                <div>
+            <span class="alert alert-success">Score : {{point}}</span>
+            </div>
             </dl>
-
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
@@ -31,11 +37,7 @@
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
-            <button type="button"
-                    [routerLink]="['/questionnaire', questionnaire.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Submit</span>
-            </button>
+
         </div>
     </div>
 </div>
