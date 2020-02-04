@@ -10,6 +10,7 @@
                 <dd>
                      <div *ngFor="let item of questionnaire.questions">
                         <a [routerLink]="['/question', item?.intitule, 'view']">{{item?.intitule}}</a>
+                        <!-- <div *ngIf="item.media.type=='Image'"> -->
                         <div>
                         <img src={{item.media?.adresse}}>
                         </div>
