@@ -11,8 +11,12 @@
                      <div *ngFor="let item of questionnaire.questions">
                         <a [routerLink]="['/question', item?.intitule, 'view']">{{item?.intitule}}</a>
                         <!-- <div *ngIf="item.media.type=='Image'"> -->
-                        <div>
-                        <img src={{item.media?.adresse}}>
+                        <div *ngIf="item.media">
+                        <div [ngSwitch]="item.media.type">
+                        <img *ngSwitchCase="'Image'" src={{item.media?.adresse}}>
+                        <video *ngSwitchCase="'Video'" src={{item.media?.adresse}}>le media n'est pas supporté</video>
+                        <audio *ngSwitchCase="'Musique'" src="C:\Users\cleme\Music\6Rings.mp3" controls>audio non supporté</audio>
+                        </div>
                         </div>
                         	<div *ngFor="let i of item.reponses">
                         		<input type="checkbox" id={{i.id}} name={{i.id}} value={{i?.valide}}
