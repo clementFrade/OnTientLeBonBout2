@@ -23,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let questionnaire of questionnaires ;trackBy: trackId">
+            <tr  *ngFor="let questionnaire of questionnaires ;trackBy: trackId">
                 <td><a [routerLink]="['/questionnaire', questionnaire.id, 'view' ]">{{questionnaire.id}}</a></td>
                 <td>
                     <span *ngFor="let users of questionnaire.users; let last = last">
