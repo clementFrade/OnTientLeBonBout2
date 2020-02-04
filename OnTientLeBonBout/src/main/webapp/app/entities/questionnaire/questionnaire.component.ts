@@ -71,6 +71,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
       for (let element of account.authorities) {
         if (element === 'ROLE_ADMIN') {
           this.isClient = true;
+          console.log('coucou');
         }
       }
     });

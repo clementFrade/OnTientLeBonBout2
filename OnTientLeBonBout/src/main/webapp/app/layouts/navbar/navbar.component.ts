@@ -5,7 +5,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
-import { JhiLanguageHelper, AccountService, LoginModalService, LoginService } from 'app/core';
+import { JhiLanguageHelper, AccountService, Account, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 
 @Component({
@@ -20,6 +20,8 @@ export class NavbarComponent implements OnInit {
   swaggerEnabled: boolean;
   modalRef: NgbModalRef;
   version: string;
+  isClient: Boolean = false;
+  account: Account;
 
   constructor(
     private loginService: LoginService,
@@ -44,6 +46,8 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.swaggerEnabled = profileInfo.swaggerEnabled;
     });
+    this.isClient = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+    console.log(this.accountService.hasAnyAuthority(['ROLE_ADMIN']));
   }
 
   changeLanguage(languageKey: string) {
