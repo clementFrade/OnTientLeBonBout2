@@ -13,9 +13,11 @@
                         <!-- <div *ngIf="item.media.type=='Image'"> -->
                         <div *ngIf="item.media">
                         <div [ngSwitch]="item.media.type">
-                        <img *ngSwitchCase="'Image'" src={{item.media?.adresse}}>
-                        <video *ngSwitchCase="'Video'" src={{item.media?.adresse}}>le media n'est pas supporté</video>
-                        <audio *ngSwitchCase="'Musique'" src="C:\Users\cleme\Music\6Rings.mp3" controls>audio non supporté</audio>
+                        <img *ngSwitchCase="'Image'" src="{{item.media?.adresse}}">
+                        <iframe *ngSwitchCase="'Video'" source [src]="item.media?.adresse"> Browser not supported </iframe>
+                        <!-- <video *ngSwitchCase="'Video'"><source [src] = "item.media?.adresse"/></video> -->
+                        <p>"{{item.media?.adresse}}" & "https://www.youtube.com/embed/u3ktrBos7DI"</p>
+                        <audio *ngSwitchCase="'Musique'" src=C:\Users\cleme\Music\6Rings.mp3 controls>audio non supporté</audio>
                         </div>
                         </div>
                         	<div *ngFor="let i of item.reponses">
