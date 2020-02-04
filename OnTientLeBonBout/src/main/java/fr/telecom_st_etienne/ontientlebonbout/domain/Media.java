@@ -25,7 +25,7 @@ public class Media implements Serializable {
 
     @Column(name = "adresse")
     private String adresse;
-
+    
     @Column(name = "type")
     private String type;
 
