@@ -31,12 +31,12 @@
                 <td>{{question.intitule}}</td>
                 <td>
                     <div *ngIf="question.media">
-                        <a [routerLink]="['../media', question.media?.id, 'view' ]" >{{question.media?.nom}}</a>
+                        <a [routerLink]="['../media', question.media?.id, 'view' ]" >{{question.media?.id}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="question.theme">
-                        <a [routerLink]="['../theme', question.theme?.id, 'view' ]" >{{question.theme?.intitule}}</a>
+                        <a [routerLink]="['../theme', question.theme?.id, 'view' ]" >{{question.theme?.id}}</a>
                     </div>
                 </td>
                 <td>
