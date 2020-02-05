@@ -3,12 +3,10 @@ import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule }  from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { OnTientLeBonBoutSharedModule } from 'app/shared';
 import {
-  SafePipe,
   QuestionnaireComponent,
   QuestionnaireDetailComponent,
   QuestionnaireUpdateComponent,
@@ -17,18 +15,17 @@ import {
   questionnaireRoute,
   questionnairePopupRoute,
 } from './';
-
+import './safepipe.ts'
 const ENTITY_STATES = [...questionnaireRoute, ...questionnairePopupRoute];
 
 @NgModule({
-  imports: [OnTientLeBonBoutSharedModule, RouterModule.forChild(ENTITY_STATES), FormsModule, ReactiveFormsModule, BrowserModule],
+  imports: [OnTientLeBonBoutSharedModule, RouterModule.forChild(ENTITY_STATES), FormsModule, ReactiveFormsModule],
   declarations: [
     QuestionnaireComponent,
     QuestionnaireDetailComponent,
     QuestionnaireUpdateComponent,
     QuestionnaireDeleteDialogComponent,
-    QuestionnaireDeletePopupComponent,
-    SafePipe
+    QuestionnaireDeletePopupComponent
   ],
   entryComponents: [
     QuestionnaireComponent,

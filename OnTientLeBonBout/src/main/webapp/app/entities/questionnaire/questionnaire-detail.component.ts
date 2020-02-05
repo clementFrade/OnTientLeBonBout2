@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Sanitizer } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IQuestionnaire, Questionnaire } from 'app/shared/model/questionnaire.model';
@@ -7,7 +7,11 @@ import { Reponse } from 'app/shared/model/reponse.model';
 import { ReponseService } from '../reponse';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import './safepipe.ts';
 
+@Pipe({
+  name: 'safe'
+})
 @Component({
   selector: 'jhi-questionnaire-detail',
   templateUrl: './questionnaire-detail.component.html'
@@ -18,6 +22,8 @@ export class QuestionnaireDetailComponent implements OnInit {
   reponseService: ReponseService;
   id: number;
   point:number=0;
+  sanitizer: DomSanitizer;
+
 
   constructor(protected activatedRoute: ActivatedRoute) {
   }
@@ -30,8 +36,8 @@ export class QuestionnaireDetailComponent implements OnInit {
   previousState() {
     window.history.back();
   }
-  photoURL(url) {
-
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 onSubmit(form: NgForm) {
   this.point=0;

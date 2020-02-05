@@ -16,7 +16,7 @@
                 <dt><span jhiTranslate="onTientLeBonBoutApp.reponse.question">Question</span></dt>
                 <dd>
                     <div *ngIf="reponse.question">
-                        <a [routerLink]="['/question', reponse.question?.id, 'view']">{{reponse.question?.id}}</a>
+                        <a [routerLink]="['/question', reponse.question?.intitule, 'view']">{{reponse.question?.id}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="onTientLeBonBoutApp.reponse.media">Media</span></dt>
