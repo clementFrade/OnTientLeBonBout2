@@ -5,6 +5,8 @@ import { IQuestionnaire, Questionnaire } from 'app/shared/model/questionnaire.mo
 import { NgForm } from '@angular/forms';
 import { Reponse } from 'app/shared/model/reponse.model';
 import { ReponseService } from '../reponse';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'jhi-questionnaire-detail',
@@ -27,6 +29,9 @@ export class QuestionnaireDetailComponent implements OnInit {
   }
   previousState() {
     window.history.back();
+  }
+  photoURL(url) {
+
   }
 onSubmit(form: NgForm) {
   this.point=0;
