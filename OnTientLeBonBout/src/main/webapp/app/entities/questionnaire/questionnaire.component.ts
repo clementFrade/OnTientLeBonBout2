@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IQuestionnaire } from 'app/shared/model/questionnaire.model';
-import { AccountService } from 'app/core';
+import { AccountService, Account, UserService } from 'app/core';
 import { QuestionnaireService } from './questionnaire.service';
 
 @Component({
@@ -15,10 +15,15 @@ import { QuestionnaireService } from './questionnaire.service';
 export class QuestionnaireComponent implements OnInit, OnDestroy {
   questionnaires: IQuestionnaire[];
   currentAccount: any;
+  account: Account;
   eventSubscriber: Subscription;
+  isClient: Boolean = false;
+  quest: IQuestionnaire[] = [];
+  doitAfficher: Boolean;
 
   constructor(
     protected questionnaireService: QuestionnaireService,
+    protected userService: UserService,
     protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected accountService: AccountService
@@ -34,6 +39,25 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IQuestionnaire[]) => {
           this.questionnaires = res;
+          for (let element of this.account.authorities) {
+            if (element === 'ROLE_ADMIN') {
+              this.isClient = true;
+            }
+          }
+          if (!this.isClient) {
+            for (let _i = 0; _i < res.length; _i++) {
+              for (let us of this.questionnaires[_i].users) {
+                console.log('this.account.login : ' + this.account.login);
+                console.log('us.login' + us.login);
+                if (us.login === this.account.login) {
+                  console.log(this.quest);
+                  this.quest.push(this.questionnaires[_i]);
+                  break;
+                }
+              }
+            }
+            this.questionnaires = this.quest;
+          }
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -43,6 +67,13 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;
+      this.account = account;
+      for (let element of account.authorities) {
+        if (element === 'ROLE_ADMIN') {
+          this.isClient = true;
+          console.log('coucou');
+        }
+      }
     });
     this.registerChangeInQuestionnaires();
   }
@@ -57,6 +88,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
 
   registerChangeInQuestionnaires() {
     this.eventSubscriber = this.eventManager.subscribe('questionnaireListModification', response => this.loadAll());
+    this.accountService.identity().then(account => {
+      this.account = account;
+    });
   }
 
   protected onError(errorMessage: string) {
